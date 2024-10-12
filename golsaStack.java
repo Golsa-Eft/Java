@@ -2,37 +2,44 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 
-public class golsaStack implements Iterable<Integer> {
-    ArrayList<Integer> customizeStack = new ArrayList<>();
-     int top = -1;
+public class GolsaStack<T> implements Iterable<T> {
 
-    public void push(Integer value){
+    private final ArrayList<T> customizeStack = new ArrayList<>();
+
+    int top = -1;
+
+
+    public GolsaStack() {
+    }
+
+    public void push(T value) {
         customizeStack.add(value);
         top++;
     }
-    public void pop(){
+
+    public void pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
         customizeStack.remove(top);
         top--;
     }
-    public Integer peek(){
+
+    public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
         return customizeStack.get(top);
     }
 
-    @Override
-    public Iterator<Integer> iterator() {
-        return null;
+    public boolean isEmpty() {
+        return customizeStack.isEmpty();
     }
 
     @Override
-    public void forEach(Consumer<? super Integer> action) {
-        Iterable.super.forEach(action);
+    public Iterator<T> iterator() {
+        return customizeStack.iterator();
     }
 
-    @Override
-    public Spliterator<Integer> spliterator() {
-        return Iterable.super.spliterator();
-    }
 }
